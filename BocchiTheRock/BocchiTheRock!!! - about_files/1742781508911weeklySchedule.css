@@ -1,0 +1,96 @@
+.ws-prev-button,
+.ws-next-button {
+    border: none;
+    background-color: transparent;
+    margin-top: 10px;
+}
+
+.ws-content {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.ws-days {
+    display: flex;
+    justify-content: space-around;
+    flex: 1;
+    text-align: center;
+}
+
+.ws-day {
+    flex: 1;
+    min-width: 80px;
+}
+
+.ws-today {
+    color: #0096f7;
+}
+
+.day-of-week {
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+}
+
+.day-of-month {
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.ws-prev-button,
+.ws-next-button {
+    width: 22px;
+    height: 22px;
+}
+
+.ws-list-item {
+    border-radius: 4px;
+    padding: 5px;
+    font-size: 14px;
+    line-height: 22px;
+    text-wrap: nowrap;
+    margin-top: 10px;
+    box-sizing: border-box;
+    height: 34px;
+    color: rgb(3 18 66 / 20%);
+    box-sizing: border-box !important;
+    transition: 0.3s;
+    cursor: pointer;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.ws-list-item-bg {
+    background: rgba(3, 18, 66, 0.40);
+    color: #fff;
+    cursor: not-allowed;
+}
+
+/*.ws-list-item-bg:hover {*/
+/*    background-color: #29b0ff;*/
+/*}*/
+
+.ws-list-item-bg:active {
+    background-color: #0076d1;
+}
+
+.ws-list-item-border {
+    border: 1px solid rgba(3, 18, 66, 0.1);
+    color: #031242;
+}
+
+.ws-list-item-border:hover {
+    border-color: #0096f7;
+}
+
+.ws-list-item-border:active {
+    border-color: #0076d1;
+}
+
+.ws-list {
+    margin-top: 20px;
+    width: 94%;
+}

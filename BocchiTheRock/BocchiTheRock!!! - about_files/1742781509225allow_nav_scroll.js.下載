@@ -1,0 +1,13 @@
+(function () {
+    window.onload = function () {
+        init();
+    }
+
+    function init() {
+        var topNav = document.getElementById("dyna-sitebuild-site-top-nav-background"),
+            color = document.getElementById("dyna-sitebuild-site-top-background-color");
+
+        topNav.classList.add("dyna-sitebuilder-fixed");
+        color.style.paddingTop = topNav.offsetHeight + "px";
+    }
+})();

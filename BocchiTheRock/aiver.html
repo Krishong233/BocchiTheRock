@@ -1,0 +1,97 @@
+# BocchiTheRock!!! Web Design
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bocchi the Rock, 孤獨搖滾, 後藤一里">
+    <title>BocchiTheRock!!! - About</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<!-- Header -->
+<header class="fixed top-0 w-full bg-transparent z-10">
+    <div class="container mx-auto px-4 flex items-center justify-between py-2">
+        <a href="/" class="text-2xl font-bold text-black">BocchiTheRock!!!</a>
+        <button id="nav-toggle" class="text-black md:hidden"><i class="fas fa-bars"></i></button>
+        <nav id="nav-menu" class="hidden md:flex">
+            <ul class="flex space-x-4">
+                <li><a href="/" class="text-black font-semibold">About</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<main>
+    <section class="hero min-h-[calc(100vh-53px)] bg-cover bg-center flex items-center justify-center text-center text-black" style="background-image: url('allmain.png');">
+        <div>
+            <p class="text-sm">COVER HEADER</p>
+            <h1 class="text-6xl md:text-7xl font-bold">Kessoku Band</h1>
+            <p class="text-lg">Cover Subline</p>
+            <a href="#content" class="mt-4 inline-block px-6 py-2 bg-black text-white rounded">GET STARTED</a>
+        </div>
+    </section>
+
+    <!-- Audio Player -->
+    <section class="audio-player py-5 bg-white text-center">
+        <div class="container mx-auto px-4">
+            <p class="mb-2">If I could be a constellation - Kessoku Band</p>
+            <input type="range" id="audio-slider" min="0" max="100" value="50" class="w-64">
+            <i class="fas fa-volume-up ml-2"></i>
+            <audio id="track" src="path/to/audio.m4a" hidden></audio>
+        </div>
+    </section>
+
+    <!-- Full-Width Image -->
+    <section class="full-width-image">
+        <img src="path/to/full-width-image.jpg" alt="Kessoku Band Performance" class="w-full h-auto" loading="lazy">
+    </section>
+
+    <!-- Image Grid -->
+    <section class="image-grid py-5 grid grid-cols-1 md:grid-cols-3 gap-5 container mx-auto px-4">
+        <div class="space-y-5">
+            <img src="path/to/ph_bg.jpg" alt="Background" class="w-full h-auto" loading="lazy">
+            <img src="path/to/ph_rere_3.webp" alt="Character" class="w-full h-auto" loading="lazy">
+            <img src="path/to/bnr_kessokuband.jpg" alt="Band Banner" class="w-full h-auto" loading="lazy">
+            <img src="path/to/bnr_btranime.jpg" alt="Anime Banner" class="w-full h-auto" loading="lazy">
+        </div>
+        <div class="space-y-5">
+            <img src="path/to/ph_compilation_1.jpg" alt="Band 1" class="w-full h-auto" loading="lazy">
+            <img src="path/to/ph_compilation4_1.png" alt="Band 2" class="w-full h-auto" loading="lazy">
+        </div>
+        <div class="space-y-5">
+            <img src="path/to/ph_compilation3_1.png" alt="Band 3" class="w-full h-auto" loading="lazy">
+            <img src="path/to/ph_compilation2_1.jpg" alt="Band 4" class="w-full h-auto" loading="lazy">
+        </div>
+    </section>
+
+    <!-- Contribution Section -->
+    <section class="contribution py-5 bg-white">
+        <div class="container mx-auto px-4 text-left">
+            <h2 class="text-2xl font-bold">貢獻榜：</h2>
+            <h2 class="text-2xl font-bold">rrl114514</h2>
+            <p>致敬傳奇突破手 thelongdark</p>
+        </div>
+    </section>
+
+    <!-- Copyright Section -->
+    <footer class="py-5 bg-white text-center">
+        <p>all right reserved by <span class="text-sm">©はまじあき／芳文社・アニプレック</span></p>
+    </footer>
+
+    <!-- Back-to-Top Button -->
+    <button id="back-to-top" class="fixed bottom-5 right-5 bg-black text-white p-3 rounded-full hidden">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Background Music -->
+    <audio id="background-music" src="path/to/audio.m4a" loop></audio>
+</main>
+
+<script src="scripts.js"></script>
+</body>
+</html>
