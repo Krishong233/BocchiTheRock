@@ -1,0 +1,246 @@
+let eventMap = {};
+let maxLength = 4;
+
+function updateWeekDate(currentDate, num) {
+    const weekDate = document.getElementById('week-date');
+    const weekCurrentDate = currentDate.add(7 * num, 'day');
+    const dateText = dayjs(weekCurrentDate).format('MMMM YYYY')
+    weekDate.textContent = dateText;
+}
+
+function createSchedule(opt) {
+    const {height, target, eventClick, date, duration} = opt;
+
+    const currentDate = dayjs(date).tz() ?? dayjs();
+
+    const dateText = dayjs(currentDate).format('MMMM YYYY')
+    const root = createRoot(height, duration, dateText);
+
+    const prevButton = createPrevButton();
+    const nextButton = createNextButton();
+
+    const {node: content, update: updateContent} = createContent(prevButton, nextButton, eventClick);
+
+    let count = 0;
+
+    const update = () => updateContent(currentDate.add(7 * count, 'day'));
+
+    prevButton.addEventListener('click', () => {
+        count -= 1;
+        update();
+        updateWeekDate(currentDate, count);
+    });
+
+    nextButton.addEventListener('click', () => {
+        count += 1;
+        update();
+        updateWeekDate(currentDate, count);
+    });
+
+    ac(target, ac(root, content));
+    setEvents(opt.events, update);
+
+    return {
+        setEvents: (events) => setEvents(events, update),
+        destroy: () => destroy(target),
+    };
+}
+
+function createRoot(height, duration, dateText) {
+    const div = ce('div', 'ws', 'weekly-schedule');
+    div.style.height = height;
+    div.innerHTML = `      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          padding-bottom: 18px;
+          border-bottom: 1px solid #0312421a;
+        "
+      >
+        <div style="flex: 1; " >Please select an appointment slot.</div>
+        <div style="flex: 1; text-align: center; font-size: 16px;" id="week-date">${dateText}</div>
+        <div style="flex: 1; text-align: right;">
+        ${duration} Hour Appointments Slot
+        </div>
+      </div>`;
+    return div;
+}
+
+function createPrevButton() {
+    const prevButton = ce('button', 'ws-prev-button');
+    prevButton.innerHTML = `<svg width="9" height="15" viewBox="0 0 9 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0.835938 6.83594L7.08594 0.625C7.4375 0.234375 8.02344 0.234375 8.41406 0.625C8.76562 0.976562 8.76562 1.5625 8.41406 1.91406L2.78906 7.5L8.375 13.125C8.76562 13.4766 8.76562 14.0625 8.375 14.4141C8.02344 14.8047 7.4375 14.8047 7.08594 14.4141L0.835938 8.16406C0.445312 7.8125 0.445312 7.22656 0.835938 6.83594Z" fill="#031242"/>
+        </svg>
+  `;
+    return prevButton;
+}
+
+function createNextButton() {
+    const nextButton = ce('button', 'ws-next-button');
+    nextButton.innerHTML = `<svg width="9" height="15" viewBox="0 0 9 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M8.16406 6.83594L1.91406 0.625C1.5625 0.234375 0.976562 0.234375 0.585938 0.625C0.234375 0.976562 0.234375 1.5625 0.585938 1.91406L6.21094 7.5L0.625 13.125C0.234375 13.4766 0.234375 14.0625 0.625 14.4141C0.976562 14.8047 1.5625 14.8047 1.91406 14.4141L8.16406 8.16406C8.55469 7.8125 8.55469 7.22656 8.16406 6.83594Z" fill="#031242"/>
+  </svg>
+  `;
+    return nextButton;
+}
+
+function createContent(prev, next, eventClick) {
+    const content = ce('div', 'ws-content');
+    const today = new Date();
+
+    function createEvent(event) {
+        const el = ce('div', 'ws-list-item');
+
+        if (event) {
+            const flag = !!event.lastName;
+            const currentTime = dayjs().valueOf();
+            const isExpired = currentTime > event.endTime;
+            el.classList.add(flag || isExpired ? 'ws-list-item-bg' : 'ws-list-item-border');
+
+            el.addEventListener('click', () => eventClick(event));
+
+            const text = `${flag ? `${event.lastName}: ` : isExpired ? 'Expired:' : ''}${dayjs(event.startTime).tz().format('HH:mm')}-${dayjs(
+                event.endTime
+            ).tz().format('HH:mm')}`;
+
+            el.title = text;
+
+            return tc(el, text);
+        }
+
+        return tc(el, '—');
+    }
+
+    function createWeekDay(weekday) {
+        const container = ce('div', 'ws-sun', 'ws-day');
+        const day = tc(ce('div', 'day-of-month'));
+        const list = ce('div', 'ws-list');
+
+        const header = ac(ce('div', 'ws-header'), tc(ce('div', 'day-of-week'), weekday), day);
+
+        ac(container, header, list);
+
+        return {
+            getNode: () => container,
+            update: (date) => {
+                const key = date.format('YYYY-MM-DD');
+                const weekDate = new Date(key);
+                if (today.getFullYear() === weekDate.getFullYear() &&
+                    today.getMonth() === weekDate.getMonth() &&
+                    today.getDate() === weekDate.getDate()) {
+                    header.classList.add('ws-today');
+                } else {
+                    header.classList.remove('ws-today');
+                }
+                tc(day, date.format('DD'));
+                container.dataset.date = key;
+
+                const currentEvents = [...(eventMap[key] ?? [])];
+
+                while (
+                    (Number(list.dataset.eventLength) > 0 ||
+                        currentEvents.length > 0 ||
+                        list.children.length < maxLength) &&
+                    list.firstChild
+                    ) {
+                    list.removeChild(list.firstChild);
+                }
+
+                list.dataset.eventLength = currentEvents.length;
+
+                if (list.children.length === 0 || currentEvents.length > 0) {
+                    while (currentEvents.length < maxLength) {
+                        currentEvents.push(null);
+                    }
+                    const l = currentEvents.map(createEvent);
+                    ac(list, ...l);
+                }
+            },
+        };
+    }
+
+    function createWeek() {
+        const days = ce('div', 'week', 'ws-days');
+        const sun = createWeekDay('Sun');
+        const mon = createWeekDay('Mon');
+        const tue = createWeekDay('Tue');
+        const wed = createWeekDay('Wed');
+        const thu = createWeekDay('Thu');
+        const fri = createWeekDay('Fri');
+        const sat = createWeekDay('Sat');
+
+        ac(
+            days,
+            sun.getNode(),
+            mon.getNode(),
+            tue.getNode(),
+            wed.getNode(),
+            thu.getNode(),
+            fri.getNode(),
+            sat.getNode()
+        );
+
+        function update(date) {
+            sun.update(date.day(0));
+            mon.update(date.day(1));
+            tue.update(date.day(2));
+            wed.update(date.day(3));
+            thu.update(date.day(4));
+            fri.update(date.day(5));
+            sat.update(date.day(6));
+        }
+
+        return {node: days, update};
+    }
+
+    const {node: days, update} = createWeek();
+
+    ac(content, prev, days, next);
+
+    return {
+        node: content,
+        update,
+    };
+}
+
+function ce(tag, ...cls) {
+    const node = document.createElement(tag);
+    node.classList.add(...cls);
+    return node;
+}
+
+function tc(node, text) {
+    node.textContent = text;
+    return node;
+}
+
+function ac(node, ...children) {
+    children.forEach((child) => node.appendChild(child));
+    return node;
+}
+
+function setEvents(events, cb) {
+    const sortedEvents = [...events].sort((a, b) => a.startTime - b.startTime);
+
+    const newEventMap = {};
+
+    sortedEvents.forEach((event) => {
+        const key = dayjs(event.startTime).tz().format('YYYY-MM-DD');
+        if (newEventMap[key]) {
+            newEventMap[key].push(event);
+        } else {
+            newEventMap[key] = [event];
+        }
+    });
+
+    maxLength = Object.values(newEventMap).reduce((max, v) => Math.max(max, v?.length), 4);
+    eventMap = newEventMap;
+
+    cb?.();
+}
+
+function destroy(target) {
+    target.removeChild(target.firstChild);
+    eventMap = {};
+    maxLength = 4;
+}

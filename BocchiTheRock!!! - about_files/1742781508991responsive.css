@@ -1,0 +1,108 @@
+@media screen and (max-width: 1000px) {
+    .dyna-sitebuild-content {
+        padding: 0 10px;
+    }
+
+    .dyna-sitebuild-content .checkout-left {
+        width: 100%;
+        padding: 0;
+    }
+
+    .dyna-sitebuild-content .checkout-left .checkout-step {
+        display: none;
+    }
+
+    .dyna-sitebuild-content .checkout-right {
+        width: 100%;
+    }
+
+    .dyna-sitebuild-content .checkout-right .checkout-right-title {
+        display: block;
+    }
+
+    .dyna-sitebuild-content .checkout-right .order-product-table {
+        display: none;
+        width: 88%;
+        padding: 0 6%;
+    }
+}
+
+@media screen and (max-width: 750px) {
+
+    .dyna-sitebuild-content .blog-left,
+    .dyna-sitebuild-content .blog-left.part,
+    .dyna-sitebuild-content .blog-right-sidebar {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .dyna-sitebuild-content .success-wapper {
+        width: 100%;
+        padding-left: 0;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .dyna-sitebuild-content {
+        width: calc(100% - 20px) !important;
+    }
+
+    .dyna-sitebuild-block-spacer {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .dyna-sitebuild-content .dyna-sitebuild-content-product-wrap {
+        width: 70%;
+        height: inherit;
+        padding: 0 15%;
+    }
+
+    .dyna-sitebuild-content .cart-table table tbody tr td img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .dyna-product-left {
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .dyna-product-right {
+        width: 90%;
+    }
+}
+
+@media only screen and (max-width: 359px) {
+    #dyna-sitebuild-site-top-rest-background.dyna-sitebuild-site-top-rest-landing {
+        height: inherit;
+        padding: 25px 0;
+    }
+
+    #dyna-sitebuild-site-top-rest-background.dyna-sitebuild-site-top-rest-tall {
+        height: inherit;
+        padding: 15px 0;
+    }
+
+    #dyna-sitebuild-site-top-rest-background.dyna-sitebuild-site-top-rest-short {
+        height: inherit;
+        padding: 8px 0;
+    }
+}
+
+@media only screen and (max-width: 768px) and (min-width: 359px) {
+
+    #dyna-sitebuild-site-top-rest-background.dyna-sitebuild-site-top-rest-tall {
+        height: 205px;
+    }
+
+    #dyna-sitebuild-site-top-rest-background.dyna-sitebuild-site-top-rest-short {
+        height: 200px;
+    }
+
+    #dyna-sitebuild-site-top-rest-head {
+        padding-top: 20px;
+    }
+}
