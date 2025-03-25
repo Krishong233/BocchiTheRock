@@ -69,6 +69,31 @@
  <script src="https://unpkg.com/vue@3"></script>
 </head>
 <style>
+ #back-to-top-btn {
+  position: fixed; /* 固定在螢幕上 */
+  bottom: 20px;    /* 距離底部 20px */
+  right: 20px;     /* 距離右邊 20px */
+
+  align-items: center;
+  justify-content: center;
+  width: 50px;     /* 按鈕寬度 */
+  height: 50px;    /* 按鈕高度 */
+  background: rgb(253, 241, 241); /* 背景色，帶透明度 */
+  border-radius: 50%; /* 圓形按鈕 */
+  cursor: pointer; /* 鼠標懸停時顯示手型 */
+  transition: opacity 0.3s ease; /* 淡入淡出效果 */
+
+ }
+
+ #back-to-top-btn img {
+  width: 30px;     /* 圖標大小 */
+  height: 30px;
+ }
+
+ #back-to-top-btn:hover {
+  opacity: 0.9;    /* 懸停時略透明 */
+  transform: scale(1.1); /* 稍微放大 */
+ }
  /* 按鈕懸停效果 */
  iframe {
   display: none !important;
@@ -89,11 +114,8 @@
   font-family: 'Orbitron', sans-serif;
   margin: 0;
   padding: 0;
-  height: 100vh; /* 保持視窗高度 */
-
-
-  align-items: center;
-  overflow-y: hidden; /* 隱藏垂直溢出，避免底部空白 */
+  min-height: 100vh; /* 改為 min-height，允許內容超出 */
+  overflow-y: auto; /* 允許垂直滾動 */
  }
  .btn {
   display: inline-block;
@@ -139,6 +161,18 @@
  .animate-section {
   opacity: 0;
   transform: translateY(20px);
+ }
+ @media (max-width: 600px) {
+  #back-to-top-btn {
+   bottom: 10px;
+   right: 10px;
+   width: 40px;
+   height: 40px;
+  }
+  #back-to-top-btn img {
+   width: 20px;
+   height: 20px;
+  }
  }
 
 </style>
@@ -322,19 +356,46 @@
   </div>
  </div>
 </div>
-</div></div><div class="site-builder-back-to-top-btn" style="display: flex;"><img alt="Top" src="https://www.hitorigotoh.ski/back-to-top.svg"></div></div><script type="text/javascript" src="./BocchiTheRock!!! - about_files/hp_script.js.下載"></script>
-<div id="lightboxOverlay" class="lightboxOverlay" style="display: none;"></div><div id="lightbox" class="lightbox" style="display: none;"><div class="lb-outerContainer"><div class="lb-container"><img class="lb-image" src="https://www.hitorigotoh.com/"><div class="lb-nav"><a class="lb-prev" href="https://www.hitorigotoh.ski/"></a><a class="lb-next" href="https://www.hitorigotoh.ski/"></a></div><div class="lb-loader"><a class="lb-cancel"></a></div></div></div><div class="lb-dataContainer"><div class="lb-data"><div class="lb-details"><span class="lb-caption"></span><span class="lb-number"></span></div><div class="lb-closeContainer"><a class="lb-close"></a></div></div></div></div>
-<!-- 全屏圖片展示層 -->
-<div id="img-fullscreen" class="fullscreen">
- <img src="" alt="Full Screen View">
-</div>
+</div></div>
 
+<div id="back-to-top-btn" class="site-builder-back-to-top-btn"><img alt="Top" src="https://www.hitorigotoh.ski/back-to-top.svg"></div></div><script type="text/javascript" src="./BocchiTheRock!!! - about_files/hp_script.js.下載"></script>
+<div id="lightboxOverlay" class="lightboxOverlay" style="display: none;"></div><div id="lightbox" class="lightbox" style="display: none;"><div class="lb-outerContainer"><div class="lb-container"><img class="lb-image" src="https://www.hitorigotoh.com/"><div class="lb-nav"><a class="lb-prev" href="https://www.hitorigotoh.ski/"></a><a class="lb-next" href="https://www.hitorigotoh.ski/"></a></div><div class="lb-loader"><a class="lb-cancel"></a></div></div></div><div class="lb-dataContainer"><div class="lb-data"><div class="lb-details"><span class="lb-caption"></span><span class="lb-number"></span></div><div class="lb-closeContainer"><a class="lb-close"></a></div></div></div></div>
 <!-- 背景音樂 -->
 <audio id="background-music" src="If I could be a constellation.m4a" autoplay loop></audio>
 
 <script>
+
  document.addEventListener("DOMContentLoaded", function () {
   var audio = document.getElementById("background-music");
+  const backToTopBtn = document.getElementById("back-to-top-btn");
+  const contentContainer = document.querySelector(".dyna-sitebuild-content");
+
+  if (!backToTopBtn || !contentContainer) {
+   console.error("找不到 'back-to-top-btn' 或 '.dyna-sitebuild-content' 元素");
+   return;
+  }
+
+  // 確保按鈕初始為隱藏狀態
+  backToTopBtn.style.display = "none";
+
+  // 監聽 .dyna-sitebuild-content 的滾動事件
+  contentContainer.addEventListener("scroll", function () {
+   let scrollTop = contentContainer.scrollTop;
+
+   console.log("滾動距離:", scrollTop);  // 測試是否有輸出
+
+   if (scrollTop > 1) {
+    backToTopBtn.style.display = "flex";  // 顯示按鈕
+   } else {
+    backToTopBtn.style.display = "none";  // 隱藏按鈕
+   }
+  });
+
+  // 點擊按鈕平滑回頂部
+  backToTopBtn.addEventListener("click", function (e) {
+   e.preventDefault();
+   contentContainer.scrollTo({ top: 0, behavior: "smooth" });
+  });
 
   function playAudio() {
    audio.play().then(() => {
