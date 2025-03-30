@@ -65,6 +65,7 @@
  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
  <!-- 載入 Vue.js -->
  <script src="https://unpkg.com/vue@3"></script>
+
 </head>
 <style>
  #back-to-top-btn {
@@ -187,7 +188,7 @@
        <div class="dyna-sitebuild-site-top-nav-wrap2" id="dyna-sitebuild-site-top-nav-wrap2">
         <div id="dyna-sitebuild-site-head-wrap"><div id="dyna-sitebuild-site-head">
          <div class="" id="dyna-sitebuild-site-head-edit">
-          <a href="https://www.hitorigotoh.ski/" style="font-size: 22px;">BocchiTheRock!!!</a></div></div></div></div></div>
+          <a href="https://www.hitorigotoh.ski/" style="font-size: 22px;">BOCCHI THE ROCK !!!</a></div></div></div></div></div>
       <div class="dyna-sitebuild-site-navi-btn" id="dyna-sitebuild-site-navi-btn">
        <i class="fa fa-navicon"></i></div></div>
      <div class="dyna-sitebuild-site-top-background-color" id="dyna-sitebuild-site-top-background-color" style="height: calc(100% - 53px); padding-top: 53px;">
@@ -204,7 +205,11 @@
             <div class="solid" id="dyna-sitebuild-site-top-rest-button-text">GET STARTED</div></a></div></div></div></div></div></div>
      <div id="dyna-sitebuild-site-top-border"></div></div></div>
    <div class="nav-style-meridian" id="dyna-sitebuild-site-navi" style="">
-    <ul id="dyna-sitebuild-site-navi-list"><li><a href="https://www.hitorigotoh.com/" class="active" id="page_name_navi1">about</a></li></ul><a href="https://www.hitorigotoh.com" id="dyna-sitebuild-site-navi-close"><i class="fa-solid fa-xmark-large"></i></a></div><div class="dyna-sitebuild-content-background dyna-sitebuild-section" id="dyna-sitebuild-content-background" style="">
+    <ul id="dyna-sitebuild-site-navi-list">
+     <li><a href="https://www.hitorigotoh.com/" class="active" id="page_name_navi1">about</a></li>
+     <li><a href="/photos.html" id="page_name_navi2">photos</a></li>
+    </ul>
+    <a href="https://www.hitorigotoh.com" id="dyna-sitebuild-site-navi-close"><i class="fa-solid fa-xmark-large"></i></a></div><div class="dyna-sitebuild-content-background dyna-sitebuild-section" id="dyna-sitebuild-content-background" style="">
  <div class="dyna-sitebuild-content" id="dyna-sitebuild-content">
   <div class="dyna-sitebuild-editable" id="dyna-sitebuild-editable">
    <div class="dyna-sitebuild-draggable dyna-sitebuild-block-container">
@@ -355,7 +360,9 @@
  </div>
 </div>
 
-<div id="back-to-top-btn" class="site-builder-back-to-top-btn"><img alt="Top" src="https://www.hitorigotoh.ski/back-to-top.svg"></div><script type="text/javascript" src="./BocchiTheRock!!! - about_files/hp_script.js.下載"></script>
+<!-- Back to top button -->
+<div id="back-to-top-btn" class="site-builder-back-to-top-btn"><img alt="Top" src="https://www.hitorigotoh.ski/back-to-top.svg"></div>
+
 <!-- 背景音樂 -->
 <audio id="background-music" src="If I could be a constellation.m4a" autoplay loop></audio>
 
@@ -371,8 +378,7 @@
    return;
   }
 
-  // 確保按鈕初始為隱藏狀態
-  backToTopBtn.style.display = "none";
+
 
   // 監聽 .dyna-sitebuild-content 的滾動事件
   contentContainer.addEventListener("scroll", function () {
